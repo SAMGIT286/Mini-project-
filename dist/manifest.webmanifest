@@ -1,0 +1,25 @@
+{
+  "name": "MemoMind — Personal Memory & Care Assistant",
+  "short_name": "MemoMind",
+  "description": "Personal memory and care assistant for medicines, appointments, memories and daily routines.",
+  "start_url": "/login",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#07110d",
+  "theme_color": "#0b6b46",
+  "icons": [
+    {
+      "src": "/pwa-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
