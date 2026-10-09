@@ -113,6 +113,7 @@ def _quick_chat_reply(message: str, language: str = "English") -> str | None:
         return "मैं आपकी दवाइयाँ देख सकता हूँ। उन्हें देखने के लिए Medicines सेक्शन खोलें।" if language == "Hindi" else "I can check your saved medicines. Please open the Medicines section to view them."
     if re.search(r"\b(?:tell me about|what are) my appointments\b", normalized):
         return "मैं आपकी अपॉइंटमेंट्स देख सकता हूँ। उन्हें देखने के लिए Appointments सेक्शन खोलें।" if language == "Hindi" else "I can check your saved appointments. Please open the Appointments section to view them."
+<<<<<<< HEAD
 
     # Smart lookup for finding things / where is my ...
     target = None
@@ -136,6 +137,8 @@ def _quick_chat_reply(message: str, language: str = "English") -> str | None:
                 return f"तुमचे {item['object']}{' ' + item['location'] + ' येथे' if item.get('location') else ''} पाहिले गेले होते."
             else:
                 return f"Your {item['object']} was last seen{loc_str} (Recorded sighting)."
+=======
+>>>>>>> 793ac7deb2b90b53cd66eaa442c60ada77921602
     return None
 
 
@@ -145,7 +148,11 @@ def _localized_fallback(language: str) -> str:
         "Marathi": "मी तुमच्या सेव्ह केलेल्या माहितीबद्दल मदत करू शकतो. तुम्हाला काय जाणून घ्यायचे आहे?",
         "Spanish": "Puedo ayudarte con la información que tienes guardada. ¿Qué te gustaría saber?",
         "French": "Je peux vous aider avec vos informations enregistrées. Que souhaitez-vous savoir ?",
+<<<<<<< HEAD
         "Bengali": "আমি আপনার সংরক্ষিত তথ্য সম্পর্কে সাহায্য করতে পারি। আপনি কী जानना চান?",
+=======
+        "Bengali": "আমি আপনার সংরক্ষিত তথ্য সম্পর্কে সাহায্য করতে পারি। আপনি কী জানতে চান?",
+>>>>>>> 793ac7deb2b90b53cd66eaa442c60ada77921602
         "Tamil": "நீங்கள் சேமித்த தகவல்களைப் பற்றி நான் உதவ முடியும். நீங்கள் என்ன தெரிந்துகொள்ள விரும்புகிறீர்கள்?",
         "Telugu": "మీరు సేవ్ చేసిన సమాచారం గురించి నేను సహాయం చేయగలను. మీరు ఏమి తెలుసుకోవాలనుకుంటున్నారు?",
         "Arabic": "يمكنني مساعدتك بشأن معلوماتك المحفوظة. ماذا تريد أن تعرف؟",
@@ -165,6 +172,7 @@ def system_status():
             database_ok = False
 
     model_path = BASE_DIR / "ai" / "object_detection" / "best.pt"
+<<<<<<< HEAD
     yolo_loaded = False
     yolo_error = None
     try:
@@ -182,6 +190,20 @@ def system_status():
         face_loaded = getattr(face_model, "app", None) is not None
         face_error = getattr(face_model, "error", None)
     except Exception as exc:
+=======
+    try:
+        model = detector()
+        yolo_loaded = model.model is not None
+        yolo_error = model.error
+    except (ImportError, OSError, RuntimeError) as exc:
+        yolo_loaded = False
+        yolo_error = str(exc)
+    try:
+        face_model = recognizer()
+        face_loaded = face_model.app is not None
+        face_error = face_model.error
+    except (ImportError, OSError, RuntimeError, ValueError) as exc:
+>>>>>>> 793ac7deb2b90b53cd66eaa442c60ada77921602
         face_loaded = False
         face_error = str(exc)
 
@@ -204,7 +226,10 @@ def system_status():
     }
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 793ac7deb2b90b53cd66eaa442c60ada77921602
 @app.get("/")
 def home():
     return {
@@ -220,10 +245,13 @@ def health():
 @app.post("/api/chat", response_model=ChatResponse)
 async def chat(request: ChatRequest):
 
+<<<<<<< HEAD
     quick_reply = _quick_chat_reply(request.message, request.language)
     if quick_reply:
         return ChatResponse(reply=quick_reply)
 
+=======
+>>>>>>> 793ac7deb2b90b53cd66eaa442c60ada77921602
     # Check whether the API key is configured.
     if not API_KEY:
         raise HTTPException(
@@ -231,6 +259,13 @@ async def chat(request: ChatRequest):
             detail="OpenRouter API key is not configured.",
         )
 
+<<<<<<< HEAD
+=======
+    quick_reply = _quick_chat_reply(request.message, request.language)
+    if quick_reply:
+        return ChatResponse(reply=quick_reply)
+
+>>>>>>> 793ac7deb2b90b53cd66eaa442c60ada77921602
     # Validate conversation history.
     for item in request.history:
         if item.role not in ("user", "assistant"):

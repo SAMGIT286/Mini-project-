@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from datetime import datetime, timezone
 from typing import Any
 from fastapi import APIRouter, Query, HTTPException, Body
@@ -9,10 +10,16 @@ from services.observation_service import (
     delete_observation,
     clear_observations,
 )
+=======
+from fastapi import APIRouter, Query
+
+from services.observation_service import list_observations
+>>>>>>> 793ac7deb2b90b53cd66eaa442c60ada77921602
 
 router = APIRouter(prefix="/api/observations", tags=["observations"])
 
 
+<<<<<<< HEAD
 class ManualObservationRequest(BaseModel):
     object: str = Field(min_length=1, max_length=100)
     location: str | None = Field(default=None, max_length=200)
@@ -71,3 +78,24 @@ def clear_all_observations(object_name: str | None = Query(default=None, alias="
     count = clear_observations(object_name=object_name)
     return {"cleared": True, "count": count}
 
+=======
+@router.get("")
+def get_observations(object_name: str | None = Query(default=None, alias="object"),
+                     person: str | None = None):
+    return list_observations(object_name, person)
+
+
+@router.get("/latest")
+def get_latest_observations(limit: int = Query(default=10, ge=1, le=100)):
+    return list_observations()[:limit]
+
+
+@router.get("/object/{object_name}")
+def get_object_observations(object_name: str):
+    return list_observations(object_name=object_name)
+
+
+@router.get("/person/{person_name}")
+def get_person_observations(person_name: str):
+    return list_observations(person_name=person_name)
+>>>>>>> 793ac7deb2b90b53cd66eaa442c60ada77921602

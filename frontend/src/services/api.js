@@ -13,6 +13,7 @@ async function request(path, options = {}) {
   return data;
 }
 
+<<<<<<< HEAD
 export const getObservations = (objectName, personName, limit) => {
   const params = new URLSearchParams();
   if (objectName) params.set("object", objectName);
@@ -30,6 +31,14 @@ export const clearObservations = (objectName) => {
 export const addObservation = (data) =>
   request("/api/observations", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
 export const getSupportedClasses = () => request("/api/detection/classes");
+=======
+export const getObservations = (objectName, personName) => {
+  const params = new URLSearchParams();
+  if (objectName) params.set("object", objectName);
+  if (personName) params.set("person", personName);
+  return request(`/api/observations${params.toString() ? `?${params}` : ""}`);
+};
+>>>>>>> 793ac7deb2b90b53cd66eaa442c60ada77921602
 export const getSystemStatus = () => request("/api/system/status");
 export const registerUser = (user) =>
   request("/api/auth/register", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(user) });
@@ -48,21 +57,29 @@ export const saveUserData = (resource, userId, items) =>
 export const analyzeImage = (file, fields = {}) => {
   const body = new FormData();
   body.append("file", file);
+<<<<<<< HEAD
   Object.entries(fields).forEach(([key, value]) => {
     if (value !== undefined && value !== null && value !== "") {
       body.append(key, String(value));
     }
   });
+=======
+  Object.entries(fields).forEach(([key, value]) => value && body.append(key, value));
+>>>>>>> 793ac7deb2b90b53cd66eaa442c60ada77921602
   return request("/api/detection/image", { method: "POST", body });
 };
 export const analyzeFrame = (file, fields = {}) => {
   const body = new FormData();
   body.append("file", file);
+<<<<<<< HEAD
   Object.entries(fields).forEach(([key, value]) => {
     if (value !== undefined && value !== null && value !== "") {
       body.append(key, String(value));
     }
   });
+=======
+  Object.entries(fields).forEach(([key, value]) => value && body.append(key, value));
+>>>>>>> 793ac7deb2b90b53cd66eaa442c60ada77921602
   return request("/api/detection/frame", { method: "POST", body });
 };
 

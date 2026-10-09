@@ -547,6 +547,7 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .contact-line span { color: #9b2c2c; }
 .optional-caregiver-callout { background: var(--mint); border: 1px dashed var(--green-500); border-radius: 9px; padding: 12px; margin-top: 12px; font-size: 10px; }
 .optional-caregiver-callout p { margin: 4px 0 6px; font-size: 9px; color: var(--muted); }
+<<<<<<< HEAD
 .status-pill.info { background: #dbeafe; color: #1e40af; }
 .status-pill.warning { background: #fef3c7; color: #92400e; }
 
@@ -737,3 +738,10 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .btn-sm { padding: 6px 12px; font-size: 11px; }
 .mt-3 { margin-top: 12px; }
 
+=======
+.caregiver-quick-status { display: flex; align-items: center; gap: 9px; background: var(--green-50); border: 1px solid var(--green-100); border-radius: 8px; padding: 10px; margin-top: 12px; }
+.caregiver-quick-status strong { font-size: 10px; display: block; }
+.caregiver-quick-status span { font-size: 9px; color: var(--muted); }
+.status-pill.info { background: #dbeafe; color: #1e40af; }
+.status-pill.warning { background: #fef3c7; color: #92400e; }
+>>>>>>> 793ac7deb2b90b53cd66eaa442c60ada77921602

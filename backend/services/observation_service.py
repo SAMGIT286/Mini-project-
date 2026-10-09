@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import re
 from typing import Any
 from uuid import uuid4
@@ -55,6 +56,13 @@ def _get_target_terms(query_str: str) -> list[str]:
 
     return list(terms)
 
+=======
+from typing import Any
+from uuid import uuid4
+
+from database.mongodb import collection, memory_store, serialize
+
+>>>>>>> 793ac7deb2b90b53cd66eaa442c60ada77921602
 
 def create_observations(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
     if not items:
@@ -69,6 +77,7 @@ def create_observations(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return enriched
 
 
+<<<<<<< HEAD
 def list_observations(object_name: str | None = None, person_name: str | None = None, limit: int | None = None) -> list[dict[str, Any]]:
     records = collection("observations")
     terms = _get_target_terms(object_name) if object_name else []
@@ -149,3 +158,19 @@ def clear_observations(object_name: str | None = None) -> int:
     return initial_len - len(items)
 
 
+=======
+def list_observations(object_name=None, person_name=None) -> list[dict[str, Any]]:
+    records = collection("observations")
+    if records is not None:
+        query = {}
+        if object_name:
+            query["object"] = {"$regex": object_name, "$options": "i"}
+        if person_name:
+            query["person"] = {"$regex": f"^{person_name}$", "$options": "i"}
+        return [serialize(item) for item in records.find(query).sort("timestamp", -1)]
+    items = memory_store("observations")
+    return sorted(
+        [item for item in items if (not object_name or object_name.lower() in item["object"].lower())
+         and (not person_name or (item.get("person") or "").lower() == person_name.lower())],
+        key=lambda item: item["timestamp"], reverse=True)
+>>>>>>> 793ac7deb2b90b53cd66eaa442c60ada77921602
